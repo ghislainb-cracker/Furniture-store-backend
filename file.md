@@ -3,7 +3,6 @@ Project Directory: ecommerce-backend/
 
 This document provides an overview of the backend structure for the Fun Store E-Commerce application, built with Node.js, Express, and MongoDB.
 
-📁 Project Structure
 Root-Level Files
 
 File	Description
@@ -12,7 +11,6 @@ package.json	Contains project metadata, scripts, and dependencies.
 server.js	Main entry point—initializes Express, connects to MongoDB, and sets up middleware/
 
 routes.
-📂 Folder Breakdown
 1. config/
 Handles application configurations.
 
@@ -50,7 +48,7 @@ Custom middleware functions for request processing.
 
 File	Description
 errorMiddleware.js	Centralized error handling.
-authMiddleware.js	Authenticates users & checks roles (e.g., admin).
+authMiddleware.js	Authenticates users & checks roles (admin and user).
 6. utils/
 Helper functions for reusability.
 
@@ -61,20 +59,18 @@ Stores user-uploaded files (e.g., product images).
 
 Subfolder	Description
 product-images/	Contains product images.
-🔧 How to Run the Project
+
+How to Run the Project
 Install dependencies:
 
-bash
 npm install
-Set up .env (use .env.example as a template).
-
+Set up .env
 Start the server:
 
-bash
 npm start
 Access API at http://localhost:[PORT]/api/.
 
-📌 Notes
+
 Authentication: JWT-based (handled in authMiddleware.js).
 
 Error Handling: Global error catcher in errorMiddleware.js.
