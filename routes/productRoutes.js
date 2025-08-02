@@ -1,24 +1,33 @@
-import express from 'express';
+import express from "express";
 import {
-  getProducts,
-  getProduct,
-  getProductsByCategory,
-  addProductReview,
-  getCategories,
-  searchProducts
-} from '../controllers/productController.js';
-import { authMiddleware } from '../middleware/authMiddleware.js';
+  getAllProducts,
+  getProductById,
+  createProduct,
+  updateProduct,
+  deleteProduct,
+  searchProducts,
+  getByCategory,
+  getFeaturedProducts,
+  getSaleProducts,
+  getAllCategories,
+} from "../controllers/productController.js";
+
+import { protect } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
+// Product CRUD
+router.get("/", getAllProducts);
+router.get("/:id", getProductById);
+router.post("/", protect, createProduct);
+router.put("/:id", protect, updateProduct);
+router.delete("/:id", protect, deleteProduct);
 
-router.get('/search', searchProducts);
-router.get('/categories', getCategories);
-router.get('/category/:category', getProductsByCategory);
-
-router.post('/:id/reviews', authMiddleware, addProductReview);
-
-router.get('/', getProducts);
-router.get('/:id', getProduct);
+//Filtering
+router.get("/category/:category", getByCategory);
+router.get("/featured", getFeaturedProducts);
+router.get("/sale", getSaleProducts);
+router.get("/categories", getAllCategories);
+router.get("/search", searchProducts);
 
 export default router;
