@@ -12,7 +12,7 @@ const productSchema = new mongoose.Schema({
   title: { type: String, required: true },
   description: String,
   price: { type: Number, required: true },
-  image: String, // add image upload logic later
+  image: String, 
   category: { type: String, required: true },
   stock: { type: Number, default: 0 },
   isFeatured: { type: Boolean, default: false },
