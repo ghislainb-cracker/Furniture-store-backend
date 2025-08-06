@@ -1,11 +1,10 @@
-// routes/authRoutes.js
+import express from 'express'
+import { getMe } from '../controllers/authController.js'
+import { protect } from '../middleware/authMiddleware.js'
 
-import express from "express";
-import { register, login } from "../controllers/authController.js";
+const AuthRoutes = express.Router()
+AuthRoutes.use(protect)
 
-const router = express.Router();
+AuthRoutes.get("/api/auth/getMe", getMe)
 
-router.post("/register", register);
-router.post("/login", login);
-
-export default router;
+export default AuthRoutes
