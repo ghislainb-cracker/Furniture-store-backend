@@ -5,7 +5,7 @@ import { protect } from "../middleware/authMiddleware.js";
 const router = express.Router();
 
 router.get('/', protect, getCart);
-router.post('/add', addToCart);
+router.post('/add', protect, addToCart);
 router.put('/update/:itemId', updateCartItem);
 router.delete('/remove/:itemId', removeFromCart);
 router.delete('/clear', clearCart);

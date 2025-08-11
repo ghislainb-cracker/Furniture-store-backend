@@ -1,5 +1,8 @@
 import Cart from "../models/Cart.js";
 import Product from "../models/Product.js";
+import jwt from 'jsonwebtoken'
+import dotenv from 'dotenv'
+dotenv.config();
 
 export const getCart = async (req, res) => {
     try {
@@ -21,34 +24,41 @@ export const getCart = async (req, res) => {
 
 export const addToCart = async (req, res) => {
     try {
-        // Ensure user is authenticated
-        if (!req.user || !req.user._id) {
-            return res.status(401).json({ success: false, message: 'User not authenticated' });
-        }
 
-        const { productId, quantity = 1, option = {} } = req.body;
-        const userId = req.user._id;
+        const { quantity = 1, options = {} } = req.body;
+        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OTc2ZTZlYzk4YmVhYTUwNWFlOGM5NiIsImlhdCI6MTc1NDg2MDI3M30.0bvOsnyEsOYWleUFDbj-Rh-eZ2lV9dUa43lhtn_Nuk8"
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-        // Find the product
+        const productId = "68990b0bea4269d68e6f10ba";
+        const ids = "68976e6ec98beaa505ae8c96"
+        // Find the product by ID in mongodb product schema database
         const product = await Product.findById(productId);
+        
         if (!product) {
             return res.status(404).json({ success: false, message: 'Product not found' });
+            return res.json(Product.findOne());
         }
-        if (!product.isAvailable) {
-            return res.status(400).json({ success: false, message: 'Product is not available' });
-        }
+        // if (!product.isAvailable) {
+        //     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        //     return res.status(400).json({ 
+        //         success: false, 
+        //         message: 'Product is not available',
+        //         decoded: decoded
+        //     });
+           
+        // }
         if (product.stock < quantity) {
             return res.status(400).json({ success: false, message: 'Product is out of stock' });
         }
 
         // Find or create the cart
-        let cart = await Cart.findOne({ user: userId });
+        let cart = await Cart.findOne({ user: decoded.id });
         if (!cart) {
-            cart = await Cart.create({ user: userId, items: [] });
+            cart = await Cart.create({ user: decoded.id, items: [] });
         }
 
         // Add item to the cart
-        await cart.addItem(productId, quantity, product.price, option);
+        await cart.addItem(productId, quantity, options, product.price);
 
         // Populate product details in the response
         await cart.populate('items.product', 'title price images category isAvailable stock');
