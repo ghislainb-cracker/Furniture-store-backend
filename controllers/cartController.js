@@ -8,8 +8,8 @@ export const getCart = async (req, res) => {
     try {
         const authHeaders = req.headers.authorization;
 
-        if(!authHeaders){
-            res.status(401).json({success: false, message: authHeaders});
+        if (!authHeaders) {
+            res.status(401).json({ success: false, message: authHeaders });
         }
         const token = authHeaders.split(' ')[1];
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -32,19 +32,20 @@ export const getCart = async (req, res) => {
 export const addToCart = async (req, res) => {
     try {
 
-        const { quantity = 1, options = {} } = req.body;
-       const authHeaders = req.headers.authorization;
+        const { quantity = 1, options = {}, productId } = req.body;
+        const authHeaders = req.headers.authorization;
 
-        if(!authHeaders){
-            res.status(401).json({success: false, message: authHeaders});
+        if (!authHeaders) {
+            res.status(401).json({ success: false, message: "no token found" });
         }
-        const token = authHeaders.split(' ')[1];
+        const token = authHeaders.split(' ')[1]
+        // const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OTc2ZTZlYzk4YmVhYTUwNWFlOGM5NiIsImlhdCI6MTc1NDg2MDI3M30.0bvOsnyEsOYWleUFDbj-Rh-eZ2lV9dUa43lhtn_Nuk8"
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-        const productId = "68990b0bea4269d68e6f10ba";
-       
+        // const productId = "68990b0bea4269d68e6f10ba";
+        // Find the product by ID in mongodb product schema database
         const product = await Product.findById(productId);
-        
+
         if (!product) {
             return res.status(404).json({ success: false, message: 'Product not found' });
             return res.json(Product.findOne());
@@ -56,7 +57,7 @@ export const addToCart = async (req, res) => {
         //         message: 'Product is not available',
         //         decoded: decoded
         //     });
-           
+
         // }
         if (product.stock < quantity) {
             return res.status(400).json({ success: false, message: 'Product is out of stock' });
@@ -114,27 +115,40 @@ export const updateCartItem = async (req, res) => {
 export const removeFromCart = async (req, res) => {
     try {
         const { itemId } = req.params
+        const authHeaders = req.headers.authorization;
+        const token = authHeaders.split(' ')[1];
 
-        const cart = await Cart.findOne({ user: req.user._id });
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+        const cart = await Cart.findOne({ user: decoded.id });
         if (!cart) return res.status(404).json({ success: false, message: 'Cart not found' });
 
         await cart.removeItem(itemId);
         await cart.populate('items.product', 'title price images category isAvailable stock');
 
-        res.json({ success: true, message: 'item removed form cart successfully', cart: { cart } });
+        res.json({ success: true, message: 'item removed form cart successfully', cart });
     } catch (err) {
         res.status(500).json({ success: false, message: err.message });
     }
 }
 
 export const clearCart = async (req, res) => {
-    try {        
-        const cart = await Cart.findOne({ user: req.user._id });
+    try {
+        const authHeaders = req.headers.authorization;
+        
+        if(!authHeaders){
+            res.status(401).json({success: false, message: 'no token found'})
+        }
+
+        const token = authHeaders.split(' ')[1];
+
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const cart = await Cart.findOne({ user: decoded.id });
         if (!cart) return res.status(404).json({ success: false, message: 'cart not found' });
 
         await cart.clearCart();
 
-        res.json({ success: true, message: 'Cart cleared successfully',  cart  })
+        res.json({ success: true, message: 'Cart cleared successfully', cart })
     } catch (err) {
         res.status(500).json({ success: false, message: err.message })
     }

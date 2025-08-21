@@ -49,14 +49,14 @@ const cartSchema = new mongoose.Schema({
   timestamps: true
 });
 
-// Calculate totals before saving the cart
+
 cartSchema.pre('save', function(next) {
   this.totalAmount = this.items.reduce((sum, item) => sum + item.totalPrice, 0);
   this.itemCount = this.items.reduce((sum, item) => sum + item.quantity, 0);
   next();
 });
 
-// method for adding item to the cart
+
 cartSchema.methods.addItem = function(productId, quantity = 1, options = {}, price) {
   const existingItem = this.items.find(item => 
     item.product.toString() === productId.toString() &&
@@ -79,13 +79,23 @@ cartSchema.methods.addItem = function(productId, quantity = 1, options = {}, pri
   return this.save();
 };
 
-// method for removing the item form the cart
+
 cartSchema.methods.removeItem = function(itemId) {
+  
   this.items = this.items.filter(item => item._id.toString() !== itemId.toString());
+
+  
+  this.totalAmount = this.items.reduce((sum, item) => sum + item.totalPrice, 0);
+
+  
+  this.itemCount = this.items.length;
+
+  
   return this.save();
 };
 
-// method for updating item quantity
+
+
 cartSchema.methods.updateQuantity = function(itemId, quantity) {
   const item = this.items.id(itemId);
   if (item) {
@@ -95,7 +105,7 @@ cartSchema.methods.updateQuantity = function(itemId, quantity) {
   return this.save();
 };
 
-// method  of clearing the cart
+
 cartSchema.methods.clearCart = function() {
   this.items = [];
   return this.save();
